@@ -46,13 +46,32 @@ function searchApi(){
         alert("reg is null");
         return ;
     }
+    var firstMatch ;
     for(var p in apis){
         if(reg.test(p)){
+            if(!firstMatch) firstMatch = p;
             str += p + ":" + JSON.stringify(apis[p]) + '<br>';
             console.log(str);
         }
     }
     $("#con").html(str); 
+    return firstMatch;
+}
+/**
+  *根据api的param进行渲染
+  */
+function renderApiEdit(apiId){
+    if(apiId){
+        var template = $("#edit").html();
+        var param = apis[apiId].param;
+        if(param){
+            var str = "";
+            for(var p in param){
+               str += template; 
+            }
+            $("#edit").html(str);
+        }
+    } 
 }
 
 $(document).keyup(function(e){
@@ -62,7 +81,8 @@ $(document).keyup(function(e){
             return document.activeElement.id == 'command';
        }
        if(isFocus){
-            searchApi();
+            var apiId = searchApi();
+            renderApiEdit(apiId);
        }else{
         alert(1);
             $("#command").focus();
@@ -74,7 +94,7 @@ $(document).keyup(function(e){
 <body>
     <input type="text" id="command"/>adfjkas
     <div id="con">
-
+    
     </div>
     <div id="edit">
         <p><span>email:</span><input type="text" width="10"/></p>
