@@ -64,9 +64,10 @@ function searchApi(){
 function renderApiEdit(apiId){
     if(apiId){
         var template = $("#edit_template").html();
+        var btn_add= $("#edit_add").html();
         var param = apis[apiId].param;
         if(param){
-            var str = "";
+            var str = btn_add;
             for(var p in param){
                 var item = template.replace('email',p);
                 item = item.replace('xxx',param[p]);
@@ -75,6 +76,10 @@ function renderApiEdit(apiId){
             $("#edit").html(str);
         }
     } 
+}
+
+function btnSaveClick(){
+   //TODO 
 }
 
 $(document).keyup(function(e){
@@ -104,5 +109,13 @@ $(document).keyup(function(e){
     </div>
     <div id="edit_template">
         <p><span>email:</span><input type="text" width="10" value="xxx"/></p>
+    </div>
+    <div id="edit_add">
+        <p>
+            <input type="button" id="btn_add" value="Add"/>
+            <input type="button" id="btn_delete" value="Delete"/>
+            <input type="button" id="btn_save" value="Save"/>
+        </p>
+    </div>
 </body>
 </html>

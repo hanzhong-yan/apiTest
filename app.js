@@ -4,6 +4,7 @@ var util = require("util");
 
 var count = 0;
 var apis = require('./mobileApi.js').apis;
+var mobileApiHandler = require('./mobileApi.js');
 
 var express = require("express");
 var app = express();
@@ -24,6 +25,12 @@ app.get('/',function(req,res){
 app.get('/getApis',function(req,res){
    res.send(util.format('%j',apis)); 
    res.end();
+});
+app.post('/saveApi',function(req,res){
+   var api = req.body.api;
+   api = JSON.parse(api);
+   res.end('{"ret":"ok"}');
+   mobileApiHandler.saveApi(api);
 });
 
 //http.createServer(function (req, res) {

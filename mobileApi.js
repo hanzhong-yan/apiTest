@@ -55,6 +55,13 @@ function loadApis(){
     //console.log(apis);
 }
 
+function saveApi(api){
+    if(apis[api.id]){
+        apis[api.id].param = api.param;
+        persistApis();         
+    }
+}
+
 loadApis();
 
 exports.apis = apis;
